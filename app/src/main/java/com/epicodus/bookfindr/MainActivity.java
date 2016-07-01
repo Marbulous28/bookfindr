@@ -10,7 +10,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.findBooksButton) Button mFindBooksButton;
     @Bind(R.id.genreInput) EditText mGenreInput;
 
@@ -20,14 +20,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        mFindBooksButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String genre = mGenreInput.getText().toString();
-                Intent intent = new Intent(MainActivity.this, BookDisplayActivity.class);
-                intent.putExtra("genre", genre);
-                startActivity(intent);
-            }
-        });
+        mFindBooksButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == mFindBooksButton) {
+            String genre = mGenreInput.getText().toString();
+            Intent intent = new Intent(MainActivity.this, BookDisplayActivity.class);
+            intent.putExtra("genre", genre);
+            startActivity(intent);
+        }
     }
 }
