@@ -6,20 +6,21 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 
 public class BookDisplayActivity extends AppCompatActivity {
     private String[] books = new String[] {"The Fellowship of the Ring", "The Two Towers", "The Return of the King",
     "The Hobbit", "The Name of the Wind", "The Wise Man's Fear", "The Doors of Stone"};
-    private ListView mListView;
-    private TextView mGenreInfo;
+    @Bind(R.id.listView) ListView mListView;
+    @Bind(R.id.genreInfo) TextView mGenreInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_display);
-
-        mListView = (ListView) findViewById(R.id.listView);
-        mGenreInfo = (TextView) findViewById(R.id.genreInfo);
+        ButterKnife.bind(this);
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, books);
         mListView.setAdapter(adapter);

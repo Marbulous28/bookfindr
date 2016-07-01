@@ -6,19 +6,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 
 public class MainActivity extends AppCompatActivity {
-    private Button mFindBooksButton;
-    private EditText mGenreInput;
+    @Bind(R.id.findBooksButton) Button mFindBooksButton;
+    @Bind(R.id.genreInput) EditText mGenreInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mGenreInput = (EditText) findViewById(R.id.genreInput);
-        mFindBooksButton = (Button) findViewById(R.id.findBooksButton);
-        mFindBooksButton.setOnClickListener(new View.OnClickListener() {
+        ButterKnife.bind(this);
 
+        mFindBooksButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String genre = mGenreInput.getText().toString();
