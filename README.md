@@ -5,7 +5,7 @@ An android exercise for Epicodus
 
 ## Description
 
-This Android app that randomly suggests books based off user input.
+This Android app randomly suggests books based off user input.
 
 ## Set-up 
 
