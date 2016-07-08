@@ -42,4 +42,12 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:hint="genre" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/keyWordInput"
+        android:layout_above="@+id/genreInput"
+        android:layout_centerHorizontal="true"
+        android:hint="enter a keyword" />
 </RelativeLayout>

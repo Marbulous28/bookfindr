@@ -19,7 +19,7 @@ public class BookService {
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
 
-        String url = Constants.GOOGLE_BASE_URL + keyword + "+subject:" + subject +"&key=" + Constants.GOOGLE_BOOKS_KEY;
+        String url = Constants.GOOGLE_BASE_URL + keyword + "+inauthor:" + subject +"&key=" + Constants.GOOGLE_BOOKS_KEY;
 
         Request request = new Request.Builder()
                 .url(url)

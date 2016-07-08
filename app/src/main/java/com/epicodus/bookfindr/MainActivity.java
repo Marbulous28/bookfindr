@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.findBooksButton) Button mFindBooksButton;
     @Bind(R.id.genreInput) EditText mGenreInput;
+    @Bind(R.id.keyWordInput) EditText mKeyWordInput;
     @Bind(R.id.userBooksButton) Button mUserBooksButton;
 
     @Override
@@ -28,9 +29,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v == mFindBooksButton) {
-            String genre = mGenreInput.getText().toString();
+            String subject = mGenreInput.getText().toString();
+            String keyword = mKeyWordInput.getText().toString();
             Intent intent = new Intent(MainActivity.this, BookDisplayActivity.class);
-            intent.putExtra("genre", genre);
+            intent.putExtra("subject", subject);
+            intent.putExtra("keyword", keyword);
             startActivity(intent);
         } else if (v == mUserBooksButton) {
             Intent intent = new Intent(MainActivity.this, UserBooksPageActivity.class);
