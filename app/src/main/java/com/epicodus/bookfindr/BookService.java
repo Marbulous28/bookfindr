@@ -1,6 +1,13 @@
 package com.epicodus.bookfindr;
 
 
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 import okhttp3.Call;
@@ -19,7 +26,7 @@ public class BookService {
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
 
-        String url = Constants.GOOGLE_BASE_URL + keyword + "+inauthor:" + subject +"&key=" + Constants.GOOGLE_BOOKS_KEY;
+        String url = Constants.GOOGLE_BASE_URL + keyword + "+subject:" + subject +"&key=" + Constants.GOOGLE_BOOKS_KEY;
 
         Request request = new Request.Builder()
                 .url(url)
@@ -28,6 +35,33 @@ public class BookService {
         Call call = client.newCall(request);
         call.enqueue(callback);
 
+    }
+
+    public ArrayList<Book> processResults(Response response) {
+        ArrayList<Book> books = new ArrayList<>();
+
+        try {
+            String jsonData = response.body().string();
+            if (response.isSuccessful()) {
+                JSONObject googleJSON = new JSONObject(jsonData);
+                JSONArray itemsJSON = googleJSON.getJSONArray("items");
+                for (int i = 0; i < itemsJSON.length(); i++) {
+                    JSONObject bookJSON = itemsJSON.getJSONObject(i);
+                    JSONObject volumeInfo = bookJSON.getJSONObject("volumeInfo");
+                    String publisher = volumeInfo.getString("title");
+
+
+                    Book book = new Book(publisher);
+                    books.add(book);
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return books;
     }
 
 }

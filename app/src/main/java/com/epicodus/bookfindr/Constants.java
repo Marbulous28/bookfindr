@@ -6,4 +6,5 @@ package com.epicodus.bookfindr;
 public class Constants {
     public static final String GOOGLE_BOOKS_KEY = BuildConfig.GOOGLE_BOOKS_KEY;
     public static final String GOOGLE_BASE_URL = "https://www.googleapis.com/books/v1/volumes?q=";
+
 }
