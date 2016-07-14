@@ -1,11 +1,14 @@
 package com.epicodus.bookfindr.models;
 
-/**
- * Created by Peter on 7/8/16.
- */
+
+import org.parceler.Parcel;
+
+@Parcel
 public class Book {
     private String mTitle;
     private String mRating;
+
+    public Book() {}
 
 
     public Book(String title, String rating) {
