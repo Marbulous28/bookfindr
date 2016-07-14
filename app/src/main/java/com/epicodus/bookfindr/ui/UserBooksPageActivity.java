@@ -1,7 +1,9 @@
-package com.epicodus.bookfindr;
+package com.epicodus.bookfindr.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.epicodus.bookfindr.R;
 
 public class UserBooksPageActivity extends AppCompatActivity {
 

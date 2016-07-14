@@ -1,16 +1,18 @@
-package com.epicodus.bookfindr;
+package com.epicodus.bookfindr.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+
+import com.epicodus.bookfindr.R;
+import com.epicodus.bookfindr.adapters.BookListAdapter;
+import com.epicodus.bookfindr.models.Book;
+import com.epicodus.bookfindr.services.BookService;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.RunnableFuture;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,8 +24,8 @@ import okhttp3.Response;
 public class BookDisplayActivity extends AppCompatActivity {
     public static final String TAG = BookDisplayActivity.class.getSimpleName();
 
-    @Bind(R.id.listView) ListView mListView;
-    @Bind(R.id.genreInfo) TextView mGenreInfo;
+    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+    private BookListAdapter mAdapter;
 
     public ArrayList<Book> mBooks = new ArrayList<>();
 
@@ -36,7 +38,6 @@ public class BookDisplayActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String subject = intent.getStringExtra("subject");
         String keyword = intent.getStringExtra("keyword");
-        mGenreInfo.setText("You selected " + subject + " as your genre.");
 
         getBooks(keyword, subject);
     }
@@ -47,6 +48,7 @@ public class BookDisplayActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call call, IOException e) {
+
                 e.printStackTrace();
             }
 
@@ -57,19 +59,12 @@ public class BookDisplayActivity extends AppCompatActivity {
                 BookDisplayActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String[] bookNames = new String[mBooks.size()];
-                        for (int i=0; i < bookNames.length; i ++) {
-                            bookNames[i] = mBooks.get(i).getPublisher();
-                        }
-
-                        ArrayAdapter adapter = new ArrayAdapter(BookDisplayActivity.this,
-                                android.R.layout.simple_list_item_1, bookNames);
-                        mListView.setAdapter(adapter);
-
-                        for (Book book : mBooks) {
-                            Log.d(TAG, "Publisher: " + book.getPublisher());
-                        }
-
+                        mAdapter = new BookListAdapter(getApplicationContext(), mBooks);
+                        mRecyclerView.setAdapter(mAdapter);
+                        RecyclerView.LayoutManager layoutManager =
+                                new LinearLayoutManager(BookDisplayActivity.this);
+                        mRecyclerView.setLayoutManager(layoutManager);
+                        mRecyclerView.setHasFixedSize(true);
                     }
                 });
             }

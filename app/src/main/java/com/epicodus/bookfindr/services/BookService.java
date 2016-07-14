@@ -1,7 +1,8 @@
-package com.epicodus.bookfindr;
+package com.epicodus.bookfindr.services;
 
 
-import android.util.Log;
+import com.epicodus.bookfindr.Constants;
+import com.epicodus.bookfindr.models.Book;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,10 +49,12 @@ public class BookService {
                 for (int i = 0; i < itemsJSON.length(); i++) {
                     JSONObject bookJSON = itemsJSON.getJSONObject(i);
                     JSONObject volumeInfo = bookJSON.getJSONObject("volumeInfo");
-                    String publisher = volumeInfo.getString("title");
+                    String title = volumeInfo.getString("title");
+                    String rating = volumeInfo.getString("averageRating");
 
 
-                    Book book = new Book(publisher);
+
+                    Book book = new Book(title, rating);
                     books.add(book);
                 }
             }
